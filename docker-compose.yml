@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  sftp:
+    image: atmoz/sftp
+    volumes:
+      - ./sftp/vendor:/home/vendor
+      - ./sftp/ssh_host_rsa_key:/home/vendor/.ssh/keys/ssh_host_rsa_key
+    ports:
+      - "2222:22"
+    command: vendor::1001
