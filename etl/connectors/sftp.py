@@ -2,10 +2,10 @@ from typing import List
 import pysftp
 
 
-class SFTP:
+class SFTPConnector:
     """ The SFTP connector to handle external data """
 
-    def __init__(self, host:str, port:int, username:str, key_path:str) -> None:
+    def __init__(self, host: str, port: int, username: str, key_path: str) -> None:
         """Initialize the SFTP connector
 
         Args:
@@ -24,7 +24,7 @@ class SFTP:
         )
 
 
-    def download(self, source_path:str, dest_path:str) -> None:
+    def download(self, source_path: str, dest_path: str) -> None:
         """ Copy a file between the remote host and the local host
 
         Args:
@@ -34,7 +34,7 @@ class SFTP:
         self.connection.get(source_path, dest_path)
 
 
-    def list_dir(self, path:str = '.') -> List:
+    def list_dir(self, path: str = '.') -> List:
         """ List files and directories given path
 
         Args:
@@ -51,15 +51,4 @@ class SFTP:
         """ Close the connection and cleans up """
 
         self.connection.close()
-
-
-sftp = SFTP(
-    host='localhost',
-    port=2222,
-    username='vendor',
-    key_path='id_rsa'
-)
-
-print(sftp.list_dir())
-sftp.close()
 
