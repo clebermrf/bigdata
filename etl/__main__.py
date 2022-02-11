@@ -1,6 +1,7 @@
 import os
 from connectors import SFTPConnector
 from transformers import JSONTransformer
+from loaders import HDFSLoader
 
 
 files = ['authors.json', 'books.json', 'reviews.json']
@@ -13,7 +14,14 @@ sftp = SFTPConnector(
     files=files
 )
 
-transformer = JSONTransformer(
+transformer = JSONTransformer(files=files)
+
+files = ['authors.parquet', 'books.parquet', 'reviews.parquet']
+
+hdfs = HDFSLoader(
+    host='localhost',
+    port=9870,
+    username='vendor',
     files=files
 )
 
@@ -21,3 +29,4 @@ if __name__ == '__main__':
 
     sftp.run()
     transformer.run()
+    hdfs.run()
